@@ -21,7 +21,7 @@ var euler = (function () {
             var i = 0;
 
             while (i < max) {
-                console.log(i);
+                // console.log(i);
                 if (i % 5 == 0 || i % 3 == 0) {
                     result += i;
                 }
@@ -52,23 +52,35 @@ var euler = (function () {
         primeFactors: function (num) {
             var sqrt = Math.floor(Math.sqrt(num));
             var prime = [];
-            var isPrime = true;
+            var x = 0;
 
             for (var i = 2; i <= sqrt; i++) {
-                if (i % 2 == 0 && i != 2) {
-                    // prime[i] = null;
+                if (num % i == 0 && i != 2) {
+                    prime[x] = i;
+                    x++;
                 }
-                for (var j = 2; j*j <= i; j++) {
-                    if (i % j == 0) {
-                        isPrime = false;
-                        break;
-                    }
-                }
-                if(isPrime) prime[i] = i;
             }
-
-            // arguments.callee(result);
             return prime;
+        },
+
+        Palindrome: function () {
+            //100 < x < 1000, 100 < y < 1000
+            //z = x * y
+            //z / x = y
+            //z / y = x
+            //
+            var result;
+
+            for (var x = 999; x >= 100;) {
+                for(var y = 999; y >= 100; y--) {
+                    var z = x * y;
+                    if (z / x == y && z / y == x) {
+                        result = z;
+                    }
+                    x--;
+                }
+            }
+            return result;
         }
 
     }
@@ -89,6 +101,10 @@ document.body.appendChild(childFibo);
 
 
 var childFibo = document.createElement('p');
-childFibo.innerText = "3. Largest prime factor is " + (600851475143 / 3)
+childFibo.innerText = "3. Largest prime factor is " + euler.primeFactors(600851475143);
     euler.primeFactors(600851475143);
 document.body.appendChild(childFibo);
+
+var Palindrome = document.createElement('p');
+Palindrome.innerText = "4. Largest palindrome product is " + euler.Palindrome();
+document.body.appendChild(Palindrome);
