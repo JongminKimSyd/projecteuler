@@ -1,20 +1,20 @@
 var euler = (function () {
     return {
-        multiplesOfNaturalNumbers: function(x, y, until) {
-            var sumOfMultiplesOf3 =0 , sumOfMultiplesOf5 = 0, sumOfMultiplesof3N5 = 0;
-            for (var i=0; i < until; i++) {
-                if (i % x === 0 && i % y != 0) {
-                    sumOfMultiplesOf3 += i;
-                }
-                if (i % y === 0 && i % x != 0) {
-                    sumOfMultiplesOf5 += i;
-                }
-                if (i % x===0 && i % y ===0 ) {
-                    sumOfMultiplesof3N5 += i;
-                }
-            }
-            return sumOfMultiplesOf3 + sumOfMultiplesOf5 + sumOfMultiplesof3N5;
-        },
+        // multiplesOfNaturalNumbers: function(x, y, until) {
+        //     var sumOfMultiplesOf3 =0 , sumOfMultiplesOf5 = 0, sumOfMultiplesof3N5 = 0;
+        //     for (var i=0; i < until; i++) {
+        //         if (i % x === 0 && i % y != 0) {
+        //             sumOfMultiplesOf3 += i;
+        //         }
+        //         if (i % y === 0 && i % x != 0) {
+        //             sumOfMultiplesOf5 += i;
+        //         }
+        //         if (i % x===0 && i % y ===0 ) {
+        //             sumOfMultiplesof3N5 += i;
+        //         }
+        //     }
+        //     return sumOfMultiplesOf3 + sumOfMultiplesOf5 + sumOfMultiplesof3N5;
+        // },
 
         multiplesOfNaturalNumbers3N5: function(max) {
             var result = 0;
@@ -64,29 +64,108 @@ var euler = (function () {
         },
 
         Palindrome: function () {
-            //100 < x < 1000, 100 < y < 1000
-            //z = x * y
-            //z / x = y
-            //z / y = x
-            //
-            var result;
+            var max_palindrome = 0;
 
-            for (var x = 999; x >= 100;) {
-                for(var y = 999; y >= 100; y--) {
-                    var z = x * y;
-                    if (z / x == y && z / y == x) {
-                        result = z;
+            var a = 999;
+            while (a > 99) {
+                var b = 999;
+                while (b >= a) {
+                    prod = a * b;
+                    if (prod > max_palindrome && isPalindromeString(prod)) {
+                        max_palindrome = prod;
                     }
-                    x--;
+                    b--;
+                }
+                a--;
+            }
+
+            function isPalindromeString(num) {
+                if (num.toString() == reverse(num.toString())) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+
+            function reverse(s) {
+                var o = '';
+                for (var i = s.length - 1; i >= 0; i--)
+                    o += s[i];
+                return o;
+            }
+
+            return max_palindrome;
+
+
+            // function isPalindrome(num) {
+            //
+            //     var reversed = 0;
+            //     var original = num;
+            //
+            //     if (num < 10) return true;
+            //     if (num % 10 == 0) return false;
+            //
+            //     while (num >= 1) {
+            //         reversed = (reversed * 10) + (num % 10);
+            //         num = num / 10;
+            //     }
+            //
+            //     if (original == reversed) {
+            //         return true;
+            //     }
+            //     else {
+            //         return false;
+            //     }
+            // }
+        },
+
+        SmallestMultiple: function (min, max) {
+            // result % 1 ... 10 == 0
+            // result % min ... max == 0
+
+            var time = new Date().getTime();
+
+            for (var i = max; i <= Number.MAX_SAFE_INTEGER; i++) {
+                var found = true;
+                for (var e = min; e <= max; e++) {
+                    if (i % e != 0) {
+                        found = false;
+                        break;
+                    }
+                }
+                if (found) {
+                    return i + " and this tasks " + (Date.now() - time) / 1000 + " seconds.";
                 }
             }
-            return result;
-        }
 
+
+            // var conditionSet = function (result, min, max) {
+            //     var conditionArr = [];
+            //     for (var i = min; i <= max; i++) {
+            //         if (result % i == 0) {
+            //             conditionArr[i] = true;
+            //         } else {
+            //             conditionArr[i] = false;
+            //         }
+            //     }
+            //     if (conditionArr.includes(false)) {
+            //         return conditionSet (result + 1, min, max);
+            //     } else {
+            //         return result;
+            //     }
+            // }
+            //
+            // return conditionSet (result + 1, min, max);
+        }
     }
 }());
 
-// Param (x, y, max)
+function display(number, msg, fn) {
+    var element = document.createElement('p');
+    element.innerText = number + ". " + msg + " " + fn;
+    document.body.appendChild(element);
+}
 
 var result2 = euler.multiplesOfNaturalNumbers3N5(1000);
 var child = document.createElement('p');
@@ -95,16 +174,17 @@ document.body.appendChild(child);
 
 var until = 4000000;
 var resultFibo = euler.fibonacciNumbers(until);
-var childFibo = document.createElement('p');
-childFibo.innerText = "2. The sum of even Fibonacci numbers " + until + " is " + resultFibo;
-document.body.appendChild(childFibo);
+child.innerText = "2. The sum of even Fibonacci numbers " + until + " is " + resultFibo;
+document.body.appendChild(child);
 
 
-var childFibo = document.createElement('p');
-childFibo.innerText = "3. Largest prime factor is " + euler.primeFactors(600851475143);
-    euler.primeFactors(600851475143);
-document.body.appendChild(childFibo);
+
+child.innerText = "3. Largest prime factor is " + euler.primeFactors(600851475143);
+euler.primeFactors(600851475143);
+document.body.appendChild(child);
 
 var Palindrome = document.createElement('p');
 Palindrome.innerText = "4. Largest palindrome product is " + euler.Palindrome();
 document.body.appendChild(Palindrome);
+
+display(5, "Smallest multiple is ", euler.SmallestMultiple(1, 20));
