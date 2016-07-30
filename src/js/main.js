@@ -19,6 +19,7 @@ var euler = (function () {
         multiplesOfNaturalNumbers3N5: function(max) {
             var result = 0;
             var i = 0;
+            var time = new Date().getTime();
 
             while (i < max) {
                 // console.log(i);
@@ -27,7 +28,7 @@ var euler = (function () {
                 }
                 i++;
             }
-            return result;
+            return result + " and this tasks " + (Date.now() - time) / 1000 + " seconds.";
         },
 
         fibonacciNumbers: function (max) {
@@ -65,6 +66,7 @@ var euler = (function () {
 
         Palindrome: function () {
             var max_palindrome = 0;
+            var time = new Date().getTime();
 
             var a = 999;
             while (a > 99) {
@@ -95,7 +97,7 @@ var euler = (function () {
                 return o;
             }
 
-            return max_palindrome;
+            return max_palindrome + " and this tasks " + (Date.now() - time) / 1000 + " seconds.";
 
 
             // function isPalindrome(num) {
@@ -167,24 +169,17 @@ function display(number, msg, fn) {
     document.body.appendChild(element);
 }
 
-var result2 = euler.multiplesOfNaturalNumbers3N5(1000);
-var child = document.createElement('p');
-child.innerText = "1. The Multiples of 3 and 5 is " + result2;
-document.body.appendChild(child);
+// var result2 = euler.multiplesOfNaturalNumbers3N5(1000);
+// var child = document.createElement('p');
+// child.innerText = "1. The Multiples of 3 and 5 is " + result2;
+// document.body.appendChild(child);
 
-var until = 4000000;
-var resultFibo = euler.fibonacciNumbers(until);
-child.innerText = "2. The sum of even Fibonacci numbers " + until + " is " + resultFibo;
-document.body.appendChild(child);
+display(1, "The Multiples of 3 and 5 is", euler.multiplesOfNaturalNumbers3N5(1000));
 
+display(2, "The sum of even Fibonacci numbers", euler.fibonacciNumbers(4000000));
 
+display(3, "Largest prime factor is", euler.primeFactors(600851475143));
 
-child.innerText = "3. Largest prime factor is " + euler.primeFactors(600851475143);
-euler.primeFactors(600851475143);
-document.body.appendChild(child);
-
-var Palindrome = document.createElement('p');
-Palindrome.innerText = "4. Largest palindrome product is " + euler.Palindrome();
-document.body.appendChild(Palindrome);
+display(4, "Largest palindrome product is", euler.Palindrome());
 
 display(5, "Smallest multiple is ", euler.SmallestMultiple(1, 20));
