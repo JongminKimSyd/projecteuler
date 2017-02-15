@@ -1,3 +1,7 @@
+/**
+ * Created by jongmin.kim on 10/02/2017.
+ */
+
 var path = require('path');
 
 module.exports = {
@@ -6,6 +10,4 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, './src/js/dist')
     }
-};/**
- * Created by jongmin.kim on 10/02/2017.
- */
+};
